@@ -1,4 +1,3 @@
-# goodbye
 goodbye script tool
 =====================
 goodbye is a tool to power off the system and statistic 
