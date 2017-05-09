@@ -10,6 +10,7 @@ Data separated by commas.fisrt data is on time,second is off time
 and the last is working time,the unit is seconds.You can open 
 this file by execl in Windows operating system.
 
+
 You can install this like this:
 $make install
 If you want uninstall the tool,just like this:
