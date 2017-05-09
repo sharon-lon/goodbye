@@ -1,0 +1,62 @@
+#! /bin/bash
+
+BIN=/usr/local/bin
+ENV_PATH=/etc/profile
+
+function install
+{
+	#echo bin:$BIN
+	#install -d $BIN
+	#install goodbye $BIN/goodbye
+
+	mkdir -p $BIN
+	cp goodbye $BIN/goodbye -f
+	PATH_VAR="export ""PATN=$BIN/goodbye"":\$PATH"
+	FILE_PATH=`sed -n '/bin\/goodbye/p' $ENV_PATH`
+
+	if [ -z "$FILE_PATH" ]
+	then
+		echo write path to file
+		echo $PATH_VAR>>$ENV_PATH
+	else
+		echo the PATH have set
+		exit 0
+	fi
+	echo install end;
+}
+
+function uninstall
+{
+	rm -fr $BIN/goodbye
+	FILE_PATH=`sed -n '/bin\/goodbye/p' $ENV_PATH`
+
+	if [ -z "$FILE_PATH" ]
+	then
+		echo path not exist need not del it
+	else
+		echo path exist,del it
+		sed -i '$ d' $ENV_PATH
+	fi
+}
+
+if [ -n "$1" ]
+then
+	case "$1" in
+	-install)
+		install;;
+    -uninstall)                                                                                                      
+		uninstall;;
+     *)
+       echo error;;
+     esac
+fi
+
+
+
+
+
+
+
+
+
+

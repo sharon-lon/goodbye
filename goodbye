@@ -1,0 +1,28 @@
+#! /bin/bash
+
+OUTFILE=/var/log/time_statistics.csv
+
+INFO=`uptime`
+#UPTIME=`echo $INFO | gawk '{print $3}' | sed 's/,//g'`
+UPTIME=`cat /proc/uptime | gawk '{print $1}'`
+OFFTIME=`date +"%Y-%m-%d %H:%M:%S"`
+#ONTIME=`date -d "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S"`
+ONTIME=`date -d "$(cat /proc/uptime | gawk '{print $1}') second ago" +"%Y-%m-%d %H:%M:%S"`
+
+trap "echo you can not stop power off!"  2 3   
+#trap "fg" TSTP
+
+echo "$ONTIME,$OFFTIME,$UPTIME">>$OUTFILE
+
+echo ontime:$ONTIME
+echo uptime:$UPTIME
+echo offtime:$OFFTIME
+echo shutdown after 5 minutes
+for ((i=5;i>0;i--))
+do
+	echo $i
+	sleep 1
+done
+echo poweroff
+#poweroff -p
+
